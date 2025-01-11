@@ -19,4 +19,8 @@ public class Score implements Serializable {
         this.diffLevel = difficultyLevel;
         extent.add(this);
     }
+
+    public static void setExtent(List<Score> extent) {
+        Score.extent = extent;
+    }
 }
