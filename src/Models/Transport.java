@@ -6,6 +6,7 @@ public abstract class Transport {
     public static List<Transport> extent;
     protected Country currentCountry;
     protected Country nextOnRoute;
+    private boolean moving;
     protected boolean isInfected;
     protected static long maxInfections;
     private long infections;
@@ -20,6 +21,7 @@ public abstract class Transport {
         calculateRoute();
         if(isInfected)willGetHealthy();
         if(!isInfected)willGetInfected();
+        moving = false;
         return infections = calculateAmountOfTransmittedDisease();
     }
 
@@ -31,6 +33,23 @@ public abstract class Transport {
     protected Transport(Country startingCountry){
         currentCountry = startingCountry;
         isInfected = false;
+        moving = false;
         extent.add(this);
+    }
+
+    public Country getCurrentCountry() {
+        return currentCountry;
+    }
+
+    public long getInfections() {
+        return infections;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public boolean isMoving() {
+        return moving;
     }
 }

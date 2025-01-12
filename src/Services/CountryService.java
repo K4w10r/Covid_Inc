@@ -44,7 +44,7 @@ public class CountryService {
 
 
     // blocking / unblocking Borders, Marine Ports, AirPorts
-    public void blockConnectionsWithCountry(Country infectedCountry){
+    /*public void blockConnectionsWithCountry(Country infectedCountry){
         if(infectedCountry == null) throw new IllegalArgumentException("Infected Country cannot be null");
         for(Country country : countries){
             country.blockBordersWithCountry(infectedCountry);
@@ -56,7 +56,7 @@ public class CountryService {
         for(Country country : countries){
             country.unlockBordersWithCountry(healedCountry);
         }
-    }
+    }*/
 
 
     //Upgrades

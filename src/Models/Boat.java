@@ -21,7 +21,7 @@ public class Boat extends Transport{
     // assume there is 10 people onboard
     @Override
     public void willGetInfected(){
-        double chance = (double) (currentCountry.getInfected() / currentCountry.getPopulation()) * 10;
+        double chance = currentCountry.getInfectionRatio() * 10;
         if(Math.random() <= chance) isInfected = true;
     }
 

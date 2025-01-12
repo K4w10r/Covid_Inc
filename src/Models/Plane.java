@@ -21,7 +21,7 @@ public class Plane extends Transport{
     // assume there is 100 people onboard
     @Override
     public void willGetInfected(){
-        double chance = (double) (currentCountry.getInfected() / currentCountry.getPopulation()) * 100;
+        double chance = currentCountry.getInfectionRatio() * 100;
         if(Math.random() <= chance) isInfected = true;
     }
 

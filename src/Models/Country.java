@@ -11,8 +11,9 @@ public class Country {
     private long population;
     private long infected;
     private long immune;
+    private double criteria;
     private String flag;
-    private List<Upgrade> upgrades;
+    private ConcurrentHashMap<Upgrade, Boolean> upgrades;
     private ConcurrentHashMap<Country, Boolean> borders;
     private ConcurrentHashMap<Country, Boolean> airConnections;
     private ConcurrentHashMap<Country, Boolean> marinePorts;
@@ -37,31 +38,39 @@ public class Country {
         airConnections.put(country, true);
     }
 
-    public void blockBordersWithCountry(Country country){
+    // Block / unlock borders
+    private void blockBordersWithCountry(Country country){
         borders.replace(country,true, false);
         airConnections.replace(country,true, false);
         marinePorts.replace(country,true, false);
     }
-    public void unlockBordersWithCountry(Country country){
+    private void unlockBordersWithCountry(Country country){
         borders.replace(country,false, true);
         airConnections.replace(country,false, true);
         marinePorts.replace(country,false, true);
+    }
+
+    public void checkIfShouldBlock(Country country){
+        if(country.equals(this))return;
+        if (country.getInfectionRatio() >= criteria)blockBordersWithCountry(country);
+        if (country.getInfectionRatio() < criteria)unlockBordersWithCountry(country);
     }
 
 
     // Upgrades
     public void addUpgrade(Upgrade upgrade){
         if(upgrades.contains(upgrade))return;
-        upgrades.add(upgrade);
+        upgrades.put(upgrade, true);
     }
 
-    public Country(String name, long population, String flag){
+    public Country(String name, long population, double criteria, String flag){
         this.name = name;
         this.population = population;
         infected = 0;
         immune = 0;
+        this.criteria = criteria;
         this.flag = flag;
-        upgrades = new ArrayList<>();
+        upgrades = new ConcurrentHashMap<>();
         borders = new ConcurrentHashMap<Country, Boolean>();
         airConnections = new ConcurrentHashMap<Country, Boolean>();
         marinePorts = new ConcurrentHashMap<Country, Boolean>();
@@ -82,8 +91,16 @@ public class Country {
         return infected;
     }
 
+    public void setInfected(long infected) {
+        this.infected = infected;
+    }
+
     public long getPopulation() {
         return population;
+    }
+
+    public double getInfectionRatio(){
+        return (double) infected / population;
     }
 
     public ConcurrentHashMap<Country, Boolean> getAirConnections() {
@@ -92,5 +109,25 @@ public class Country {
 
     public ConcurrentHashMap<Country, Boolean> getMarinePorts() {
         return marinePorts;
+    }
+
+    public void setCriteria(double criteria) {
+        this.criteria = criteria;
+    }
+
+    public double getCriteria() {
+        return criteria;
+    }
+
+    public long getImmune() {
+        return immune;
+    }
+
+    public void setImmune(long immune) {
+        this.immune = immune;
+    }
+
+    public ConcurrentHashMap<Upgrade, Boolean> getUpgrades() {
+        return upgrades;
     }
 }
