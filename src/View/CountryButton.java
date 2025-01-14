@@ -1,4 +1,9 @@
 package View;
 
-public class CountryButton {
+import javax.swing.*;
+
+public class CountryButton extends JButton {
+    public CountryButton(String imagePath){
+
+    }
 }

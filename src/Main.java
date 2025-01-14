@@ -1,5 +1,6 @@
 import Models.Country;
 import Services.CountryService;
+import View.GameFrame;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,5 +18,8 @@ public class Main {
             System.out.println(cntr.getName());
         }
         System.out.println(Country.extent.size());
+
+        GameFrame gameFrame = new GameFrame();
+
     }
 }
