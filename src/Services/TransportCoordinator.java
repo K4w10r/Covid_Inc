@@ -14,6 +14,7 @@ public class TransportCoordinator implements Runnable{
         while(!stop){
             for(Transport transport : transportList){
                 transport.move();
+                System.out.println("moving");
             }
             try{
                 Thread.sleep(5000);

@@ -10,6 +10,7 @@ public class StatsBar extends JPanel implements Runnable {
     private JLabel infected;
     private JLabel immune;
     private TimeLabel time;
+    private boolean stop;
 
     public StatsBar(){
         points = new JLabel("Points: " + 0);

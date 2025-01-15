@@ -10,11 +10,14 @@ public class GameFrame extends JFrame implements ActionListener {
     private UpgradesBar upgrades;
     private StatsBar statsBar;
     private MainMenuPanel mainMenu;
+    private ScoresPanel scores;
     public GameFrame(){
         this.setTitle("Covid clicker");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1280,720);
         this.setLayout(new BorderLayout());
+
+        this.scores = new ScoresPanel();
 
         setupMainMenuPanel();
 
@@ -42,6 +45,12 @@ public class GameFrame extends JFrame implements ActionListener {
         statsBar.setPreferredSize(new Dimension(100,25));
         this.add(statsBar, BorderLayout.NORTH);
         this.repaint();
+    }
+
+    public void startScoresPanel(){
+        scores.setVisible(true);
+        scores.updateScores();
+        this.add(scores, BorderLayout.CENTER);
     }
 
     @Override

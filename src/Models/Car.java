@@ -9,10 +9,13 @@ public class Car extends Transport{
         List<Country> countryList = new ArrayList<>(currentCountry.getBorders().keySet());
         if(countryList.isEmpty())return;
         if(currentCountry.getBorders().containsValue(true)) {
-            while (nextOnRoute != currentCountry) {
+            while (nextOnRoute == currentCountry) {
                 int i = (int) (Math.random() * countryList.size());
                 Country selectedCountry = countryList.get(i);
                 if (selectedCountry.getBorders().get(currentCountry)) nextOnRoute = selectedCountry;
+                /*System.out.println("car");
+                System.out.println("Current Country: " + currentCountry.getName());
+                System.out.println("next country: " + nextOnRoute.getName());*/
             }
         }
         return;

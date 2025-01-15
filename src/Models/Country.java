@@ -12,7 +12,6 @@ public class Country {
     private long infected;
     private long immune;
     private double criteria;
-    private String flag;
     private ConcurrentHashMap<Upgrade, Boolean> upgrades;
     private ConcurrentHashMap<Country, Boolean> borders;
     private ConcurrentHashMap<Country, Boolean> airConnections;
@@ -52,7 +51,10 @@ public class Country {
 
     public void checkIfShouldBlock(Country country){
         if(country.equals(this))return;
-        if (country.getInfectionRatio() >= criteria)blockBordersWithCountry(country);
+        if (country.getInfectionRatio() >= criteria) {
+            System.out.println("blocked borders with: " + country.getName());
+            blockBordersWithCountry(country);
+        }
         if (country.getInfectionRatio() < criteria)unlockBordersWithCountry(country);
     }
 
@@ -63,13 +65,12 @@ public class Country {
         upgrades.put(upgrade, true);
     }
 
-    public Country(String name, long population, double criteria, String flag){
+    public Country(String name, long population, double criteria){
         this.name = name;
         this.population = population;
         infected = 0;
         immune = 0;
         this.criteria = criteria;
-        this.flag = flag;
         upgrades = new ConcurrentHashMap<>();
         borders = new ConcurrentHashMap<Country, Boolean>();
         airConnections = new ConcurrentHashMap<Country, Boolean>();
@@ -92,7 +93,8 @@ public class Country {
     }
 
     public void setInfected(long infected) {
-        this.infected = infected;
+        if(infected > population)this.infected = population;
+        else this.infected = infected;
     }
 
     public long getPopulation() {

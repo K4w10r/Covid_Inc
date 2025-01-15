@@ -56,6 +56,8 @@ public class MainMenuPanel extends JPanel implements ActionListener {
         }else if(e.getSource() == highScoresButton){
             //show high scores
             System.out.println("Getting high scores");
+            this.setVisible(false);
+            gameFrame.startScoresPanel();
         }else if(e.getSource() == newGameButton){
             // start new game
             System.out.println("Starting new game");

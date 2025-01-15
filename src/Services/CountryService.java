@@ -9,6 +9,10 @@ public class CountryService {
     private List<Country> countries = Country.extent;
 
 
+    public void chooseStartingCountry(Country country){
+        country.setInfected((long)country.getPopulation()/20);
+    }
+
     // adding Borders, Marine Ports, AirPorts
     public void addBorders(List<Country> borderingCountries){
         if (borderingCountries == null) throw new IllegalArgumentException("Countries list cannot be null");
@@ -20,6 +24,7 @@ public class CountryService {
                 country.addCountryBorders(border);
             }
         }
+        System.out.println("added borders to countries");
     }
 
     public void addMarinePorts(List<Country> marinePortsInCountries){
@@ -32,6 +37,7 @@ public class CountryService {
                 country.addCountryMarinePorts(port);
             }
         }
+        System.out.println("added marine ports to countries");
     }
 
     public void addAirports(){
@@ -40,6 +46,7 @@ public class CountryService {
                 country.addCountryAirPorts(airPort);
             }
         }
+        System.out.println("added airports to countries");
     }
 
 

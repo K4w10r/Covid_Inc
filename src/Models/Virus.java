@@ -11,7 +11,7 @@ public class Virus implements Runnable{
     // lambda for other difficulty levels
     //default level == Normal 1x
     private double effects(){
-        return 1;
+        return 1.01;
     }
 
     public long infect(long alreadyInfected){
@@ -20,14 +20,18 @@ public class Virus implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("please work");
         while(!stop){
+            System.out.println("infecting");
             infectionPipeline.infect();
             try {
                 Thread.sleep(speed*1000);
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
+            System.out.println("\n\n\n\n");
         }
+        System.out.println("stopping");
     }
 
     public void setInfectionPipeline(InfectionPipeline infectionPipeline) {

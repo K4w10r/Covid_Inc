@@ -1,9 +1,10 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Transport {
-    public static List<Transport> extent;
+    public static List<Transport> extent = new ArrayList<>();
     protected Country currentCountry;
     protected Country nextOnRoute;
     private boolean moving;
@@ -22,7 +23,9 @@ public abstract class Transport {
         if(isInfected)willGetHealthy();
         if(!isInfected)willGetInfected();
         moving = false;
-        return infections = calculateAmountOfTransmittedDisease();
+        infections = calculateAmountOfTransmittedDisease();
+        System.out.println(infections);
+        return infections;
     }
 
     //each subclass will calculate its own route
@@ -32,6 +35,7 @@ public abstract class Transport {
 
     protected Transport(Country startingCountry){
         currentCountry = startingCountry;
+        nextOnRoute = currentCountry;
         isInfected = false;
         moving = false;
         extent.add(this);

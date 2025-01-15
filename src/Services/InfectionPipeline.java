@@ -18,12 +18,17 @@ public class InfectionPipeline {
 
     public void infect(){
         for (Country country : countries){
+            long transportsInfect = transportsInfections(country);
+            System.out.println(transportsInfect);
             long infected = (long) (infectionModifiers(country) * virus.infect(country.getInfected()))
-                    +  transportModifier() * transportsInfections(country);
+                    +  transportModifier() * transportsInfect;
             country.setInfected(infected);
             for(Country c : countries){
                 country.checkIfShouldBlock(c);
             }
+            System.out.println("Country: " + country.getName() + ":");
+            System.out.println("Infected: " + country.getInfected());
+            System.out.println("Immune: " + country.getImmune());
         }
     }
 
@@ -53,12 +58,14 @@ public class InfectionPipeline {
     public long transportsInfections(Country country){
         long infections = 0;
         for(Transport transport : transports){
-            if(!transport.isMoving())return 0;
+            //if(!transport.isMoving())return 0;  previous
+            if(transport.isMoving())return 0;
             if(transport.getCurrentCountry().equals(country)) {
                 infections += transport.getInfections();
                 transport.setMoving(true);
             }
         }
+        System.out.println(country.getName() + " transports infections: " + infections + '\n');
         return infections;
     }
 
@@ -66,9 +73,9 @@ public class InfectionPipeline {
         return 1;
     }
 
-    public void setTransports(List<Transport> transports) {
+    /*public void setTransports(List<Transport> transports) {
         this.transports = transports;
-    }
+    }*/
 
     private static void borders1(Country country){
         country.setCriteria(country.getCriteria() / 2);
